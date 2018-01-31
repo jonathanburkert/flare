@@ -287,9 +287,9 @@ class elasticBeacon(object):
         if 'flow' in df.columns:
             df[self.beacon_flow_bytes_toserver] = df['flow'].apply(lambda x: x.get(self.beacon_flow_bytes_toserver))
 
-        df['triad_id'] = (df[self.beacon_src_ip] + df[self.beacon_dest_ip] + df[self.beacon_destination_port].astype(str)).apply(hash)
-        df['triad_freq'] = df.groupby('triad_id')['triad_id'].transform('count').fillna(0).astype(int)
-        self.high_freq = list(df[df.triad_freq > self.MIN_OCCURRENCES].groupby('triad_id').groups.keys())
+            df['triad_id'] = (df[self.beacon_src_ip] + df[self.beacon_dest_ip] + df[self.beacon_destination_port].astype(str)).apply(hash)
+            df['triad_freq'] = df.groupby('triad_id')['triad_id'].transform('count').fillna(0).astype(int)
+            self.high_freq = list(df[df.triad_freq > self.MIN_OCCURRENCES].groupby('triad_id').groups.keys())
         return df
 
     def find_beacon(self, q_job, beacon_list):
@@ -386,7 +386,7 @@ class elasticBeacon(object):
 
         if json_out:
             self.vprint('{success} Writing json file to {json_out}'.format(json_out=json_out, success=self.success))
-            now = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M')
+            now = datetime.datetime.now().strftime('%Y-%m-%d_%H%M')
             beacon_df.to_json(json_out+now, orient="records")
 
         return beacon_df
