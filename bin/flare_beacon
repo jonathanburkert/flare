@@ -70,7 +70,7 @@ def main():
                                   json_out=args.json_out)
 
 
-        if not args.html_out and not args.csv_out:
+        if not args.html_out and not args.csv_out and not args.json_out:
             print('{info}[INFO]{endc} - csv_out and html_out not selected. Print results to screen.'.format(info=bcolors.OKBLUE, endc=bcolors.ENDC))
             print(beacons)
 
