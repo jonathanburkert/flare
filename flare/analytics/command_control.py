@@ -310,7 +310,7 @@ class elasticBeacon(object):
                 if key < self.min_interval:
                     del d[key]
             
-            # Finding the total numnber of events
+            # Finding the total number of events
             total = sum(d.values())
             
             if d and total > self.MIN_OCCURRENCES:
@@ -330,7 +330,7 @@ class elasticBeacon(object):
             
             q_job.task_done()
 
-    def find_beacons(self, group=True, focus_outbound=False, whois=True, csv_out=None, html_out=None):
+    def find_beacons(self, group=True, focus_outbound=False, whois=True, csv_out=None, html_out=None, json_out=None):
 
         for triad_id in self.high_freq:
             self.q_job.put(triad_id)
@@ -382,5 +382,9 @@ class elasticBeacon(object):
         if html_out:
             self.vprint('{success} Writing html file to {html_out}'.format(html_out=html_out, success=self.success))
             beacon_df.to_html(html_out)
+
+        if json_out:
+            self.vprint('{success} Writing json file to {json_out}'.format(json_out=json_out, success=self.success))
+            beacon_df.to_json(json_out, orient="records")
 
         return beacon_df
