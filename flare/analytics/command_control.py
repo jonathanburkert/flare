@@ -23,6 +23,7 @@ from flare.tools.whoisip import WhoisLookup
 import time
 import warnings
 import os
+import datetime
 warnings.filterwarnings('ignore')
 
 config_default = os.path.join(os.path.dirname(__file__), '..', '..', 'configs/elasticsearch.ini')
@@ -385,6 +386,7 @@ class elasticBeacon(object):
 
         if json_out:
             self.vprint('{success} Writing json file to {json_out}'.format(json_out=json_out, success=self.success))
-            beacon_df.to_json(json_out, orient="records")
+            now = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M')
+            beacon_df.to_json(now+'_'+json_out, orient="records")
 
         return beacon_df
