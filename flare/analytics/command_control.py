@@ -387,6 +387,6 @@ class elasticBeacon(object):
         if json_out:
             self.vprint('{success} Writing json file to {json_out}'.format(json_out=json_out, success=self.success))
             now = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M')
-            beacon_df.to_json(now+'_'+json_out, orient="records")
+            beacon_df.to_json(json_out+now, orient="records")
 
         return beacon_df
