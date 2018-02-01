@@ -24,6 +24,8 @@ import time
 import warnings
 import os
 import datetime
+import json
+
 warnings.filterwarnings('ignore')
 
 config_default = os.path.join(os.path.dirname(__file__), '..', '..', 'configs/elasticsearch.ini')
@@ -393,6 +395,6 @@ class elasticBeacon(object):
 
             with open(json_out, 'a') as out_file:
                 for beacon in beacons:
-                    out_file.write(beacon + '\n')
+                    out_file.write(json.dumps(beacon) + '\n')
 
         return beacon_df
