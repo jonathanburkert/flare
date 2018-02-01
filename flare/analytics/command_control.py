@@ -373,8 +373,8 @@ class elasticBeacon(object):
         if group:
             self.vprint('{info} Grouping by destination group IP'.format(info=self.info))
 
-        if whois:
-            self.fields.insert(self.fields.index(self.beacon_dest_ip), 'dest_whois')
+            if whois:
+                self.fields.insert(self.fields.index(self.beacon_dest_ip), 'dest_whois')
             beacon_df = pd.DataFrame(beacon_df.groupby(self.fields).size())
             beacon_df.drop(0, axis=1, inplace=True)
 
