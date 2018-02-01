@@ -386,12 +386,13 @@ class elasticBeacon(object):
 
         if json_out:
             self.vprint('{success} Writing json file to {json_out}'.format(json_out=json_out, success=self.success))
-            now = datetime.datetime.now().strftime('%Y-%m-%d_%H%M')
-
-            beacon_df.to_pickle('/opt/flare/output/test.df')
-
+            now = datetime.datetime.now().isoformat()
+            beacon_df['timestamp'] = now
+            beacon_df['period'] = self.period
             beacons = beacon_df.to_dict(orient="records")
 
-
+            with open(json_out, 'a') as out_file:
+                for beacon in beacons:
+                    out_file.write(beacon + '\n')
 
         return beacon_df
